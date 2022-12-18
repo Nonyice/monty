@@ -14,13 +14,17 @@ void _rotl(stack_t **doubly, unsigned int cline)
 	(void)cline;
 
 	if (*doubly == NULL)
-	return;
+		return;
+
 	if ((*doubly)->next == NULL)
-	return;
+		return;
+
 	aux1 = (*doubly)->next;
 	aux2 = *doubly;
+
 	for (; aux2->next != NULL; aux2 = aux2->next)
-	;
+		;
+
 	aux1->prev = NULL;
 	aux2->next = *doubly;
 	(*doubly)->next = NULL;
@@ -41,12 +45,16 @@ void _rotr(stack_t **doubly, unsigned int cline)
 	(void)cline;
 
 	if (*doubly == NULL)
-	return;
+		return;
+
 	if ((*doubly)->next == NULL)
-	return;
+		return;
+
 	aux = *doubly;
+
 	for (; aux->next != NULL; aux = aux->next)
-	;
+		;
+
 	aux->prev->next = NULL;
 	aux->next = *doubly;
 	aux->prev = NULL;

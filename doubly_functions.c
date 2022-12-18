@@ -1,36 +1,36 @@
 #include "monty.h"
 
- /**
-  *add_dnodeint_end - add a note at the end of the doubly link list
-  *@head: first position of linked list
-  *@n: data to store
-  *Return: a doubly linked list
-  */
- stack_t *add_dnodeint_end(stack_t **head, const int n)
+/**
+ *add_dnodeint_end - add a note at the end of the doubly link list
+ *@head: first position of linked list
+ *@n: data to store
+ *Return: a doubly linked list
+ */
+stack_t *add_dnodeint_end(stack_t **head, const int n)
 {
 	stack_t *temp, *aux;
 
 	if (head == NULL)
-	return (NULL);
+		return (NULL);
 	temp = malloc(sizeof(stack_t));
 	if (!temp)
 	{
-	dprintf(2, "Error: malloc failed\n");
-	free_vglo();
-	exit(EXIT_FAILURE);
+		dprintf(2, "Error: malloc failed\n");
+		free_vglo();
+		exit(EXIT_FAILURE);
 	}
 	temp->n = n;
-/*Careful with the first time*/
+	/*Careful with the first time*/
 	if (*head == NULL)
 	{
-	temp->next = *head;
-	temp->prev = NULL;
-	*head = temp;
-	return (*head);
+		temp->next = *head;
+		temp->prev = NULL;
+		*head = temp;
+		return (*head);
 	}
 	aux = *head;
 	while (aux->next)
-	aux = aux->next;
+		aux = aux->next;
 	temp->next = aux->next;
 	temp->prev = aux;
 	aux->next = temp;
@@ -48,22 +48,22 @@ stack_t *add_dnodeint(stack_t **head, const int n)
 	stack_t *temp;
 
 	if (head == NULL)
-	return (NULL);
+		return (NULL);
 	temp = malloc(sizeof(stack_t));
 	if (!temp)
 	{
-	dprintf(2, "Error: malloc failed\n");
-	free_vglo();
-	exit(EXIT_FAILURE);
+		dprintf(2, "Error: malloc failed\n");
+		free_vglo();
+		exit(EXIT_FAILURE);
 	}
 	temp->n = n;
-/*Careful with the first time*/
+	/*Careful with the first time*/
 	if (*head == NULL)
 	{
-	temp->next = *head;
-	temp->prev = NULL;
-	*head = temp;
-	return (*head);
+		temp->next = *head;
+		temp->prev = NULL;
+		*head = temp;
+		return (*head);
 	}
 	(*head)->prev = temp;
 	temp->next = (*head);
@@ -71,6 +71,7 @@ stack_t *add_dnodeint(stack_t **head, const int n)
 	*head = temp;
 	return (*head);
 }
+
 /**
  * free_dlistint - frees the doubly linked list
  *
@@ -83,7 +84,7 @@ void free_dlistint(stack_t *head)
 
 	while ((tmp = head) != NULL)
 	{
-	head = head->next;
-	free(tmp);
+		head = head->next;
+		free(tmp);
 	}
 }

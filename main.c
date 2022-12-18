@@ -44,15 +44,18 @@ FILE *check_input(int argc, char *argv[])
 
 	if (argc == 1 || argc > 2)
 	{
-	dprintf(2, "USAGE: monty file\n");
-	exit(EXIT_FAILURE);
+		dprintf(2, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
+
 	fd = fopen(argv[1], "r");
+
 	if (fd == NULL)
 	{
-	dprintf(2, "Error: Can't open file %s\n", argv[1]);
-	exit(EXIT_FAILURE);
+		dprintf(2, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
 	}
+
 	return (fd);
 }
 
@@ -76,23 +79,25 @@ int main(int argc, char *argv[])
 	nlines = getline(&vglo.buffer, &size, fd);
 	while (nlines != -1)
 	{
-	lines[0] = _strtoky(vglo.buffer, " \t\n");
-	if (lines[0] && lines[0][0] != '#')
-	{
-	f = get_opcodes(lines[0]);
-	if (!f)
-	{
-	dprintf(2, "L%u: ", vglo.cont);
-	dprintf(2, "unknown instruction %s\n", lines[0]);
+		lines[0] = _strtoky(vglo.buffer, " \t\n");
+		if (lines[0] && lines[0][0] != '#')
+		{
+			f = get_opcodes(lines[0]);
+			if (!f)
+			{
+				dprintf(2, "L%u: ", vglo.cont);
+				dprintf(2, "unknown instruction %s\n", lines[0]);
+				free_vglo();
+				exit(EXIT_FAILURE);
+			}
+			vglo.arg = _strtoky(NULL, " \t\n");
+			f(&vglo.head, vglo.cont);
+		}
+		nlines = getline(&vglo.buffer, &size, fd);
+		vglo.cont++;
+	}
+
 	free_vglo();
-	exit(EXIT_FAILURE);
-	}
-	vglo.arg = _strtoky(NULL, " \t\n");
-	f(&vglo.head, vglo.cont);
-	}
-	nlines = getline(&vglo.buffer, &size, fd);
-	vglo.cont++;
-	}
-	free_vglo();
+
 	return (0);
 }
